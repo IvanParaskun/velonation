@@ -1,0 +1,20 @@
+services:
+  api:
+    build: api/
+    command: java -jar /api-1.0.jar
+    env_file:
+      - properties.env
+  client:
+    build: client/
+    command: node /build/index.js
+    ports:
+      - 80:3000
+    depends_on:
+      - api
+  admin:
+    build: admin/
+    command: node /build/index.js
+    ports:
+      - 5050:5050
+    depends_on:
+      - api
